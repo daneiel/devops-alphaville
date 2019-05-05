@@ -12,7 +12,7 @@ install:
 script:
   - pytest src/test_*.py --cov=handler --cov-fail-under=100
   - pycodestyle src/*py --ignore=E501
-  - aws cloudformation validate-template --template-body file://cf.yaml
+  - aws --region us-east-1 cloudformation validate-template --template-body file://cf.yaml
 after_success:
   - coveralls
 before_deploy: aws --region us-east-1 cloudformation package --template-file cf.yaml --s3-bucket ${BUCKET_NAME} --output-template-file out.yaml
